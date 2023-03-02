@@ -8,19 +8,31 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import in.clear.ap.india.http.services.ActivityService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.Scheduled;
 
 @Slf4j
 @SpringBootApplication
 @EnableFeignClients("in.clear")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class HttpApplication {
+
+    private final ActivityService activityService;
 
     public static void main(String[] args) {
         SpringApplication.run(HttpApplication.class, args);
+    }
+
+    @Scheduled(fixedDelay = 5)
+    public void expireDelayedActivities(){
+        activityService.expireUncompletedActivities();
     }
 
     @Bean

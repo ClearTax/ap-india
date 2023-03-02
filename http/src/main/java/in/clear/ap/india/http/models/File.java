@@ -46,4 +46,7 @@ public class File {
     @Column(name = "errorMessage")
     private String errorMessage;
 
+    @Column(name = "ocrId")
+    private String ocrId;
+
 }

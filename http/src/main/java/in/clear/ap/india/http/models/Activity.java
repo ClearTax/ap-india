@@ -44,7 +44,7 @@ public class Activity {
     @Column(name = "activityStatus", nullable = false)
     private ActivityStatus activityStatus;
 
-    @OneToMany(mappedBy = "activity", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "activity", fetch = FetchType.EAGER)
     @ToString.Exclude
     private List<File> files;
 

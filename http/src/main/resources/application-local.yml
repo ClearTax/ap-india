@@ -1,12 +1,17 @@
-mode: local
 server:
   port: 9081
   servlet.context-path: /api/ap-india/
 
+application:
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+
 management:
   endpoints:
     web:
-      base-path: /${mode}/actuator
+      base-path: /actuator
 
 spring:
   jpa.hibernate.ddl-auto: update

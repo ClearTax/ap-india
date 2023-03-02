@@ -1,7 +1,7 @@
 package in.clear.ap.india.http.controller;
 
 import in.clear.ap.india.http.dtos.request.BulkUnstructuredInputRequest;
-import in.clear.ap.india.http.services.UnStructuredInputService;
+import in.clear.ap.india.http.services.ActivityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/public/unstructured/v1/")
 @EnableFeignClients
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class UnstructuredInputController {
+public class ActivityController {
 
-    private final UnStructuredInputService unStructuredInputService;
+    private final ActivityService activityService;
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public void createActivity(@RequestBody BulkUnstructuredInputRequest bulkUnstructuredInputRequest){
-        unStructuredInputService.processUnstructuredInput(bulkUnstructuredInputRequest);
+        activityService.processUnstructuredInput(bulkUnstructuredInputRequest);
     }
 }
