@@ -1,7 +1,9 @@
 package in.clear.ap.india.http.services.impl;
 
 import in.clear.ap.india.http.clients.InvoiceAPIServiceClient;
+import in.clear.ap.india.http.dtos.request.ActivityStatusUpdateRequest;
 import in.clear.ap.india.http.dtos.request.BulkUnstructuredInputRequest;
+import in.clear.ap.india.http.dtos.request.FileStatusUpdateDTO;
 import in.clear.ap.india.http.models.Activity;
 import in.clear.ap.india.http.models.ActivityStatus;
 import in.clear.ap.india.http.models.File;
@@ -19,6 +21,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -75,5 +78,23 @@ public class ActivityServiceImpl implements ActivityService {
             activity.getFiles().forEach(file->file.setFileStatus(FileStatus.FAILED));
         });
         activityRepository.saveAll(expiredActivities);
+    }
+
+    @Override
+    public void updateActivityStatus(ActivityStatusUpdateRequest activityStatusUpdateRequest) {
+        Activity activity = activityRepository.findById(activityStatusUpdateRequest.getActivityId()).orElse(null);
+        if(activity==null){
+            // TODO: throw bad request exception
+        }
+        activity.setActivityStatus(activityStatusUpdateRequest.getActivityStatus());
+        activity.setUpdatedAt(LocalDateTime.now());
+        Map<String, FileStatusUpdateDTO> fileStatusUpdateDTOMap = activityStatusUpdateRequest.getFileStatuses().stream().collect(Collectors.toMap(FileStatusUpdateDTO::getFileId, el->el));
+        for(File file: activity.getFiles()){
+            FileStatusUpdateDTO fileStatusUpdateDTO = fileStatusUpdateDTOMap.get(file.getId());
+            file.setFileStatus(fileStatusUpdateDTO.getFileStatus());
+            file.setOcrId(fileStatusUpdateDTO.getOcrId());
+            file.setErrorMessage(fileStatusUpdateDTO.getErrorMessage());
+        }
+        activityRepository.save(activity);
     }
 }

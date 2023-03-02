@@ -1,5 +1,6 @@
 package in.clear.ap.india.http.controller;
 
+import in.clear.ap.india.http.dtos.request.ActivityStatusUpdateRequest;
 import in.clear.ap.india.http.dtos.request.BulkUnstructuredInputRequest;
 import in.clear.ap.india.http.services.ActivityService;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,5 +26,10 @@ public class ActivityController {
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public void createActivity(@RequestBody BulkUnstructuredInputRequest bulkUnstructuredInputRequest){
         activityService.processUnstructuredInput(bulkUnstructuredInputRequest);
+    }
+
+    @PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void createActivity(@RequestBody ActivityStatusUpdateRequest activityStatusUpdateRequest){
+        activityService.updateActivityStatus(activityStatusUpdateRequest);
     }
 }
