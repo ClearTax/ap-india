@@ -40,4 +40,10 @@ public class File {
     @JoinColumn(name="activity_id", nullable=false)
     private Activity activity;
 
+    @Column(name = "fileStatus", nullable = false)
+    private FileStatus fileStatus;
+
+    @Column(name = "errorMessage")
+    private String errorMessage;
+
 }
