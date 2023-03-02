@@ -1,0 +1,37 @@
+mode: local
+server:
+  port: 9081
+  servlet.context-path: /api/ap-india/
+
+management:
+  endpoints:
+    web:
+      base-path: /${mode}/actuator
+
+spring:
+  jpa.hibernate.ddl-auto: update
+  jpa.properties:
+    hibernate.jdbc.lob.non_contextual_creation: true
+    hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ap-india-http
+    username: user
+    password: password
+  sql:
+    init:
+      mode: always
+      platform: postgres
+
+aws:
+  s3:
+    region: "ap-south-1"
+    accessKeyId: "AKIAIBVGZGWSAU6XGY4Q"
+    secretAccessKey: "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"
+    bucket: "ct-common-dev"
+  sqs:
+    queue-url: ""
+
+module:
+  invoice-service:
+    base-url: ""
+
