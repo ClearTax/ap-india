@@ -1,4 +1,4 @@
-package in.clear.ap.india.http.redis;
+package in.clear.ap.india.http.util.redis;
 
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;

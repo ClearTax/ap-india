@@ -1,6 +1,5 @@
-package in.clear.ap.india.http.dtos.request;
+package in.clear.ap.india.unstructuredinputconsumer.dtos;
 
-import in.clear.ap.india.http.models.File;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

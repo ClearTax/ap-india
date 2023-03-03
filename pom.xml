@@ -21,6 +21,7 @@
 
     <modules>
         <module>http</module>
+        <module>unstructured-input-consumer</module>
     </modules>
 
     <build>

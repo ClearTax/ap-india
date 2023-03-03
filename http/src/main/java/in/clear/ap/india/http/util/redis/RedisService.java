@@ -1,4 +1,4 @@
-package in.clear.ap.india.http.redis;
+package in.clear.ap.india.http.util.redis;
 
 public interface RedisService {
 

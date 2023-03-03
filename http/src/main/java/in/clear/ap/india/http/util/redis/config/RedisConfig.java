@@ -1,4 +1,4 @@
-package in.clear.ap.india.http.redis.config;
+package in.clear.ap.india.http.util.redis.config;
 
 import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;

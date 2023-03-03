@@ -1,4 +1,4 @@
-package in.clear.ap.india.http.redis.config;
+package in.clear.ap.india.http.util.redis.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

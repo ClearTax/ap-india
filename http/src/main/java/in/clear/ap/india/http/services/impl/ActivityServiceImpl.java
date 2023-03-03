@@ -8,7 +8,7 @@ import in.clear.ap.india.http.models.Activity;
 import in.clear.ap.india.http.models.ActivityStatus;
 import in.clear.ap.india.http.models.File;
 import in.clear.ap.india.http.models.FileStatus;
-import in.clear.ap.india.http.redis.RedisService;
+import in.clear.ap.india.http.util.redis.RedisService;
 import in.clear.ap.india.http.repository.ActivityRepository;
 import in.clear.ap.india.http.services.ActivityService;
 import in.clear.ap.india.http.util.sqs.SqsService;
