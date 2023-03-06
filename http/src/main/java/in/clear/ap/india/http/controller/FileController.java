@@ -1,6 +1,6 @@
 package in.clear.ap.india.http.controller;
 
-import in.clear.ap.india.http.dtos.request.FileStatusUpdateRequest;
+import in.clear.ap.india.commonmodels.dtos.request.FileStatusUpdateRequest;
 import in.clear.ap.india.http.services.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

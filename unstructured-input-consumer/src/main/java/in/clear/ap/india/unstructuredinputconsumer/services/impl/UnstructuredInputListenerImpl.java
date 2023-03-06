@@ -1,9 +1,9 @@
 package in.clear.ap.india.unstructuredinputconsumer.services.impl;
 
+import in.clear.ap.india.commonmodels.dtos.request.Activity;
+import in.clear.ap.india.commonmodels.dtos.request.InvoiceCreateRequest;
+import in.clear.ap.india.commonmodels.dtos.request.InvoiceMetadataDto;
 import in.clear.ap.india.unstructuredinputconsumer.clients.InvoiceApiClient;
-import in.clear.ap.india.unstructuredinputconsumer.dtos.Activity;
-import in.clear.ap.india.unstructuredinputconsumer.dtos.InvoiceCreateRequest;
-import in.clear.ap.india.unstructuredinputconsumer.dtos.InvoiceMetadataDto;
 import in.clear.ap.india.unstructuredinputconsumer.services.UnstructuredInputListener;
 import in.clear.ap.india.unstructuredinputconsumer.util.sqs.SqsService;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +24,9 @@ public class UnstructuredInputListenerImpl implements UnstructuredInputListener 
     @Value("${module.ocr-service.sqs.queue-url}")
     private String OcrQueueUrl;
 
+
     @Override
-    @JmsListener(destination = "${module.ap-india-http.sqs-config.queue}")
+    @JmsListener(destination = "${module.ap-india-http.sqs.queue-url}")
     public void poll(Activity activity) {
         InvoiceCreateRequest invoiceCreateRequest = InvoiceCreateRequest.builder()
                 .invoiceMetadataDtoList(activity.getFiles().stream().map(el-> InvoiceMetadataDto.builder()

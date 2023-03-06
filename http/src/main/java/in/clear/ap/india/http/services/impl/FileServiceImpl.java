@@ -1,7 +1,7 @@
 package in.clear.ap.india.http.services.impl;
 
-import in.clear.ap.india.http.dtos.request.FileStatusUpdateDTO;
-import in.clear.ap.india.http.dtos.request.FileStatusUpdateRequest;
+import in.clear.ap.india.commonmodels.dtos.request.FileStatusUpdateDTO;
+import in.clear.ap.india.commonmodels.dtos.request.FileStatusUpdateRequest;
 import in.clear.ap.india.http.models.File;
 import in.clear.ap.india.http.repository.FileRepository;
 import in.clear.ap.india.http.services.FileService;

@@ -1,5 +1,6 @@
 package in.clear.ap.india.http.models;
 
+import in.clear.ap.india.commonmodels.dtos.request.ActivityStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

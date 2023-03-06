@@ -1,16 +1,17 @@
 package in.clear.ap.india.http.services.impl;
 
-import in.clear.ap.india.http.clients.InvoiceAPIServiceClient;
-import in.clear.ap.india.http.dtos.request.ActivityStatusUpdateRequest;
-import in.clear.ap.india.http.dtos.request.BulkUnstructuredInputRequest;
-import in.clear.ap.india.http.dtos.request.FileStatusUpdateDTO;
+
+import in.clear.ap.india.commonmodels.dtos.request.ActivityStatus;
+import in.clear.ap.india.commonmodels.dtos.request.ActivityStatusUpdateRequest;
+import in.clear.ap.india.commonmodels.dtos.request.BulkUnstructuredInputRequest;
+import in.clear.ap.india.commonmodels.dtos.request.FileStatus;
+import in.clear.ap.india.commonmodels.dtos.request.FileStatusUpdateDTO;
+import in.clear.ap.india.commonmodels.dtos.request.RedisFileStatusValue;
 import in.clear.ap.india.http.models.Activity;
-import in.clear.ap.india.http.models.ActivityStatus;
 import in.clear.ap.india.http.models.File;
-import in.clear.ap.india.http.models.FileStatus;
-import in.clear.ap.india.http.util.redis.RedisService;
 import in.clear.ap.india.http.repository.ActivityRepository;
 import in.clear.ap.india.http.services.ActivityService;
+import in.clear.ap.india.http.util.redis.RedisService;
 import in.clear.ap.india.http.util.sqs.SqsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,6 @@ import java.util.stream.Collectors;
 public class ActivityServiceImpl implements ActivityService {
 
     private final ActivityRepository activityRepository;
-    private final InvoiceAPIServiceClient invoiceAPIServiceClient;
     private final SqsService sqsService;
     @Value("${aws.sqs.queue-url}")
     private String sqsUrl;
@@ -55,9 +55,9 @@ public class ActivityServiceImpl implements ActivityService {
                         .collect(Collectors.toList())
                 ).build();
         fileStatusKey = fileStatusKey+activity.getId()+"-";
-        Map<String,String> fileStatusMap = new HashMap<>();
+        Map<String, RedisFileStatusValue> fileStatusMap = new HashMap<>();
         for(File file : activity.getFiles()){
-            fileStatusMap.put(file.getId(),FileStatus.PROCESSING.toString());
+            fileStatusMap.put(file.getId(), RedisFileStatusValue.builder().fileStatus(FileStatus.PROCESSING).errorMessage(null).build());
         }
         redisService.createHash(fileStatusKey,fileStatusMap);
         redisService.save(activitySize+activity.getId(),String.valueOf(activity.getFiles().size()),60);
@@ -73,7 +73,7 @@ public class ActivityServiceImpl implements ActivityService {
         activityStatuses.add(ActivityStatus.SUCCESSFUL);
         activityStatuses.add(ActivityStatus.FAILED);
         LocalDateTime expiryDate =  LocalDateTime.now().minus(40, ChronoUnit.MINUTES);
-        List<Activity> expiredActivities = activityRepository.findByCreatedAtBeforeAndActivityStatusNotIn(activityStatuses,expiryDate);
+        List<Activity> expiredActivities = activityRepository.findByCreatedAtBeforeAndActivityStatusNotIn(expiryDate, activityStatuses);
         expiredActivities.forEach(activity->{
             activity.setActivityStatus(ActivityStatus.FAILED);
             activity.setUpdatedAt(LocalDateTime.now());

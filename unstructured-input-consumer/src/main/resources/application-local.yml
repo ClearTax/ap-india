@@ -10,5 +10,8 @@ module:
   ocr-service:
     sqs:
       queue-url: ""
+  ap-india-http:
+    sqs:
+      queue-url: ""
   invoiceApi:
     baseUrl: ""

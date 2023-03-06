@@ -1,5 +1,6 @@
 package in.clear.ap.india.http.util.redis;
 
+import in.clear.ap.india.commonmodels.dtos.request.RedisFileStatusValue;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +34,10 @@ public class RedisServiceImplementation implements RedisService {
         reactiveValueOps.set(key, value, Duration.ofMinutes(ttlInMinutes)).share().block();
     }
 
-    @Override
-    public void createHash(String fileStatusKey, Map<String, String> fileStatusMap) {
-        ReactiveHashOperations<String,String,String> reactiveHashOperations = redisTemplate.opsForHash();
-        for(Map.Entry<String,String> entry : fileStatusMap.entrySet()){
-            reactiveHashOperations.put(fileStatusKey, entry.getKey(), entry.getValue()).share().block();
+    public void createHash(String fileStatusKey, Map<String, RedisFileStatusValue> fileStatusMap) {
+        ReactiveHashOperations<String,String,RedisFileStatusValue> reactiveHashOperations = redisTemplate.opsForHash();
+        for(Map.Entry<String, RedisFileStatusValue> entry : fileStatusMap.entrySet()){
+            reactiveHashOperations.put(fileStatusKey, entry.getKey(),entry.getValue()).share().block();
         }
     }
 }

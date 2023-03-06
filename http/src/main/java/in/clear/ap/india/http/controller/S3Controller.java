@@ -1,7 +1,7 @@
 package in.clear.ap.india.http.controller;
 
-import in.clear.ap.india.http.dtos.request.PreSignedUrlGenerationRequest;
-import in.clear.ap.india.http.dtos.response.PreSignedUrlResponse;
+import in.clear.ap.india.commonmodels.dtos.request.PreSignedUrlGenerationRequest;
+import in.clear.ap.india.commonmodels.dtos.response.PreSignedUrlResponse;
 import in.clear.ap.india.http.services.S3Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

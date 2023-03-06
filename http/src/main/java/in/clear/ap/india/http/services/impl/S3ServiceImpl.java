@@ -1,8 +1,8 @@
 package in.clear.ap.india.http.services.impl;
 
-import in.clear.ap.india.http.dtos.request.PreSignFileMetadata;
-import in.clear.ap.india.http.dtos.request.PreSignedUrlGenerationRequest;
-import in.clear.ap.india.http.dtos.response.PreSignedUrlResponse;
+import in.clear.ap.india.commonmodels.dtos.request.PreSignFileMetadata;
+import in.clear.ap.india.commonmodels.dtos.request.PreSignedUrlGenerationRequest;
+import in.clear.ap.india.commonmodels.dtos.response.PreSignedUrlResponse;
 import in.clear.ap.india.http.services.S3Service;
 import in.clear.ap.india.http.util.s3.S3Helper;
 import lombok.RequiredArgsConstructor;

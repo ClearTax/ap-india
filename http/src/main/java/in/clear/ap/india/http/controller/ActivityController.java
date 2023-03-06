@@ -1,7 +1,8 @@
 package in.clear.ap.india.http.controller;
 
-import in.clear.ap.india.http.dtos.request.ActivityStatusUpdateRequest;
-import in.clear.ap.india.http.dtos.request.BulkUnstructuredInputRequest;
+
+import in.clear.ap.india.commonmodels.dtos.request.ActivityStatusUpdateRequest;
+import in.clear.ap.india.commonmodels.dtos.request.BulkUnstructuredInputRequest;
 import in.clear.ap.india.http.services.ActivityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +25,12 @@ public class ActivityController {
     private final ActivityService activityService;
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void createActivity(@RequestBody BulkUnstructuredInputRequest bulkUnstructuredInputRequest){
+    public void updateActivity(@RequestBody BulkUnstructuredInputRequest bulkUnstructuredInputRequest){
         activityService.processUnstructuredInput(bulkUnstructuredInputRequest);
     }
 
     @PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void createActivity(@RequestBody ActivityStatusUpdateRequest activityStatusUpdateRequest){
+    public void updateActivity(@RequestBody ActivityStatusUpdateRequest activityStatusUpdateRequest){
         activityService.updateActivityStatus(activityStatusUpdateRequest);
     }
 }

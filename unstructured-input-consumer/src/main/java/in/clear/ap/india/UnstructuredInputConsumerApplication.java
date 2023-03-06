@@ -13,10 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @SpringBootApplication
+@ComponentScan("in.clear")
 public class UnstructuredInputConsumerApplication {
 
     public static void main(String[] args) {
