@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -54,10 +55,11 @@ public class ActivityServiceImpl implements ActivityService {
                         .collect(Collectors.toList())
                 ).build();
         fileStatusKey = fileStatusKey+activity.getId()+"-";
+        Map<String,String> fileStatusMap = new HashMap<>();
         for(File file : activity.getFiles()){
-            String key = fileStatusKey+file.getId();
-            redisService.save(key,FileStatus.PROCESSING.toString(),60);
+            fileStatusMap.put(file.getId(),FileStatus.PROCESSING.toString());
         }
+        redisService.createHash(fileStatusKey,fileStatusMap);
         redisService.save(activitySize+activity.getId(),String.valueOf(activity.getFiles().size()),60);
         redisService.save(counterKey+activity.getId(),String.valueOf(0),60);
         activity = activityRepository.save(activity);
